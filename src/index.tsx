@@ -1,7 +1,6 @@
 import React from 'react';
 import { RendererActionSlotProps } from 'react-cosmos-ui';
 import { createPlugin } from 'react-plugin';
-import { process } from 'node:process';
 
 import { DarkModeButton } from './DarkModeButton.js';
 import { DarkModeSpec } from './spec.js';
@@ -18,4 +17,8 @@ namedPlug<RendererActionSlotProps>('rendererAction', 'darkMode', () => {
 
 export { register };
 
-if (process.env.NODE_ENV !== 'test') register();
+declare const process: unknown;
+
+if (typeof process !== 'object' || (process as any).env.NODE_ENV !== 'test') {
+  register();
+}

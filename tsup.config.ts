@@ -2,6 +2,9 @@ import type { PluginBuild } from 'esbuild';
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
+  define: {
+    'process.env.NODE_ENV': '"production"',
+  },
   entry: ['src/index.tsx'],
   esbuildPlugins: [
     importAsGlobals({
