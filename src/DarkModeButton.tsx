@@ -3,19 +3,22 @@ import { IconButton32 } from 'react-cosmos-ui';
 
 type Props = {
   onClick: () => unknown;
+  filled?: boolean;
+  highlighted?: boolean;
 };
 
-export function DarkModeButton({ onClick }: Props) {
+export function DarkModeButton(props: Props) {
+  // TODO: Highlighted state
   return (
     <IconButton32
-      icon={<MoonIcon />}
+      icon={<MoonIcon filled={props.filled} />}
       title="Toggle dark mode"
-      onClick={onClick}
+      onClick={props.onClick}
     />
   );
 }
 
-function MoonIcon() {
+function MoonIcon(props: { filled?: boolean }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +27,7 @@ function MoonIcon() {
       viewBox="0 0 24 24"
     >
       <path
-        fill="none"
+        fill={props.filled ? 'currentColor' : 'none'}
         stroke="currentColor"
         stroke-width="1.5"
         stroke-linecap="round"
