@@ -51,6 +51,6 @@ function setFixtureDarkModeState(
   const rendererCore = getMethodsOf<RendererCoreSpec>('rendererCore');
   rendererCore.setFixtureState((fixtureState) => ({
     ...fixtureState,
-    mode,
+    darkMode: { mode },
   }));
 }
