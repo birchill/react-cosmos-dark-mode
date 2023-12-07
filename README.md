@@ -18,6 +18,8 @@ settings.
 
 ## Installation
 
+_NOTE: This hasn't actually been published yet so the following won't work._
+
 Install the package:
 
 ```
