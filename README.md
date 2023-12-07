@@ -26,7 +26,7 @@ npm install -D react-cosmos-dark-mode
 
 Add the plugin to your `cosmos.config.json`, e.g.:
 
-```diff-json
+```diff
  {
    "$schema": "http://json.schemastore.org/cosmos-config",
 -  "plugins": ["react-cosmos-plugin-webpack"],
