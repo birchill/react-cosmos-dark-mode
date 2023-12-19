@@ -4,7 +4,7 @@ import type {
   RendererCoreSpec,
   StorageSpec,
 } from 'react-cosmos-ui';
-import { type PluginContext, createPlugin } from 'react-plugin';
+import { PluginContext, createPlugin } from 'react-plugin';
 
 import { DarkModeButton } from './DarkModeButton.js';
 import { DarkMode, DarkModeSpec } from './spec.js';
@@ -29,7 +29,7 @@ const { namedPlug, register } = createPlugin<DarkModeSpec>({
 namedPlug<RendererActionSlotProps>(
   'rendererAction',
   'darkMode',
-  (pluginContext: PluginContext<DarkModeSpec>) => {
+  ({ pluginContext }) => {
     const { getConfig } = pluginContext;
     const { darkClass, lightClass, default: defaultMode } = getConfig();
 
