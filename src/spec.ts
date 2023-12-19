@@ -1,3 +1,5 @@
+export type DarkMode = 'dark' | 'light' | 'system';
+
 export type DarkModeSpec = {
   name: 'darkMode';
   config: {

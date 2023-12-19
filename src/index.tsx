@@ -4,12 +4,10 @@ import type {
   RendererCoreSpec,
   StorageSpec,
 } from 'react-cosmos-ui';
-import { type PluginContext, createPlugin } from 'react-plugin';
+import { PluginContext, createPlugin } from 'react-plugin';
 
 import { DarkModeButton } from './DarkModeButton.js';
-import { DarkModeSpec } from './spec.js';
-
-export const DARK_MODE_STORAGE_KEY = 'darkMode';
+import { DarkMode, DarkModeSpec } from './spec.js';
 
 /**
  * The state we pass to the fixture.
@@ -23,18 +21,6 @@ export type DarkModeFixtureState = {
   className: string | null;
 };
 
-/**
- * 'dark'   - Apply the dark mode class / absence of light class.
- * 'light'  - Apply the light mode class / absence of a dark class.
- * 'system' - Apply the appropriate class / absence of a class based on the
- *            prefers-color-scheme setting.
- */
-type DarkMode = 'dark' | 'light' | 'system';
-
-type StoredDarkModeState = {
-  mode: DarkMode;
-};
-
 const { namedPlug, register } = createPlugin<DarkModeSpec>({
   name: 'darkMode',
   defaultConfig: { darkClass: 'dark', lightClass: null, default: 'system' },
@@ -45,42 +31,36 @@ namedPlug<RendererActionSlotProps>(
   'darkMode',
   ({ pluginContext }) => {
     const { getConfig } = pluginContext;
-    // XXX For some reason `getConfig()` returns `undefined` here.
-    //
-    // For now we just manually set the default values.
-    const {
-      darkClass,
-      lightClass,
-      default: defaultMode,
-    } = getConfig() || {
-      darkClass: 'dark',
-      lightClass: null,
-      default: 'system',
-    };
-    const systemDarkMode = useSystemDarkMode();
+    const { darkClass, lightClass, default: defaultMode } = getConfig();
 
-    // TODO I don't think we want to store the dark mode here but instead we
-    // should use pluginContext.getState()/setState().
-    //
-    // If we decide to use the store, we should actually _save_ the state
-    // instead of just reading it.
-    const storedDarkMode = React.useRef(getStoredDarkModeState(pluginContext));
+    const systemDarkMode = useSystemDarkMode();
+    const storedDarkModeState = React.useRef(
+      getStoredDarkModeState(pluginContext)
+    );
     const [darkMode, dispatch] = React.useReducer(
       reduceDarkMode,
-      storedDarkMode.current || defaultMode
+      storedDarkModeState.current?.mode || defaultMode
     );
+
+    React.useEffect(() => {
+      storedDarkModeState.current = {
+        mode: darkMode !== 'system' ? darkMode : null,
+      };
+      setStoredDarkModeState(pluginContext, storedDarkModeState.current);
+    }, [darkMode]);
 
     const fixtureClass =
       (darkMode === 'dark' || (darkMode === 'system' && systemDarkMode)
         ? darkClass
         : lightClass) || null;
 
-    React.useEffect(
-      () => setFixtureDarkModeState(pluginContext, { className: fixtureClass }),
-      [fixtureClass]
-    );
-
-    // TODO Light mode button
+    React.useEffect(() => {
+      const { getMethodsOf } = pluginContext;
+      const rendererCore = getMethodsOf<RendererCoreSpec>('rendererCore');
+      rendererCore.setGlobalFixtureState<DarkModeFixtureState>('darkMode', {
+        className: fixtureClass,
+      });
+    }, [fixtureClass]);
 
     return (
       <>
@@ -100,6 +80,12 @@ namedPlug<RendererActionSlotProps>(
   }
 );
 
+// --------------------------------------------------------------------------
+//
+// Registration
+//
+// --------------------------------------------------------------------------
+
 export { register };
 
 declare const process: unknown;
@@ -107,6 +93,12 @@ declare const process: unknown;
 if (typeof process !== 'object' || (process as any).env.NODE_ENV !== 'test') {
   register();
 }
+
+// --------------------------------------------------------------------------
+//
+// Reducer
+//
+// --------------------------------------------------------------------------
 
 type DarkModeAction =
   | {
@@ -152,21 +144,40 @@ function reduceDarkMode(mode: DarkMode, action: DarkModeAction): DarkMode {
   }
 }
 
+// --------------------------------------------------------------------------
+//
+// System dark mode
+//
+// --------------------------------------------------------------------------
+
+const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
 function useSystemDarkMode(): boolean {
-  const mq = React.useRef(window.matchMedia('(prefers-color-scheme: dark)'));
-  const [isDark, setIsDark] = React.useState(mq.current.matches);
+  const [isDark, setIsDark] = React.useState(darkModeMediaQuery.matches);
 
   React.useEffect(() => {
     const listener = (e: MediaQueryListEvent) => setIsDark(e.matches);
-    mq.current.addEventListener('change', listener);
+    darkModeMediaQuery.addEventListener('change', listener);
 
     return () => {
-      mq.current.removeEventListener('change', listener);
+      darkModeMediaQuery.removeEventListener('change', listener);
     };
   }, []);
 
   return isDark;
 }
+
+// --------------------------------------------------------------------------
+//
+// Storage
+//
+// --------------------------------------------------------------------------
+
+const DARK_MODE_STORAGE_KEY = 'darkMode';
+
+type StoredDarkModeState = {
+  mode: Exclude<DarkMode, 'system'>;
+};
 
 function getStoredDarkModeState(
   context: PluginContext<DarkModeSpec>
@@ -176,14 +187,11 @@ function getStoredDarkModeState(
   return storage.getItem<StoredDarkModeState>(DARK_MODE_STORAGE_KEY) || null;
 }
 
-function setFixtureDarkModeState(
+function setStoredDarkModeState(
   context: PluginContext<DarkModeSpec>,
-  state: DarkModeFixtureState
+  state: StoredDarkModeState | null
 ) {
   const { getMethodsOf } = context;
-  const rendererCore = getMethodsOf<RendererCoreSpec>('rendererCore');
-  rendererCore.setFixtureState((fixtureState) => ({
-    ...fixtureState,
-    darkMode: state,
-  }));
+  const storage = getMethodsOf<StorageSpec>('storage');
+  storage.setItem<StoredDarkModeState>(DARK_MODE_STORAGE_KEY, state);
 }
