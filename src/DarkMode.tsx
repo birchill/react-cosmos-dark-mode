@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFixtureState } from 'react-cosmos-renderer/client';
+import { useFixtureState } from 'react-cosmos/client';
 
 export function DarkMode({ children }) {
   const [darkMode] = useFixtureState<{ className: string }>('darkMode');
