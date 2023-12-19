@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/react": "^18.2.45",
     "react": "18.2.0",
-    "react-cosmos-renderer": "6.0.0-beta.10",
+    "react-cosmos": "6.0.0-beta.10",
     "react-cosmos-ui": "6.0.0-beta.10",
     "react-plugin": "3.0.0-alpha.4",
     "styled-components": "6.1.0",
@@ -36,6 +36,6 @@
     "build": "tsup --config tsup.index.config.ts && tsup --config tsup.fixture.config.ts"
   },
   "peerDependencies": {
-    "react-cosmos-renderer": "^6.0.0-beta.10"
+    "react-cosmos": "^6.0.0-beta.10"
   }
 }
