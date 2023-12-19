@@ -2,16 +2,6 @@ export type DarkMode = 'dark' | 'light' | 'system';
 
 export type DarkModeSpec = {
   name: 'darkMode';
-  state: {
-    /**
-     * The current mode.
-     */
-    mode: DarkMode;
-    /**
-     * Whether the OS / browser is in dark mode.
-     */
-    systemDarkMode: boolean;
-  };
   config: {
     /**
      * The class to set when we are in dark mode, if any.

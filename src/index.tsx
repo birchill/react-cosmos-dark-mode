@@ -2,7 +2,6 @@ import React from 'react';
 import type {
   RendererActionSlotProps,
   RendererCoreSpec,
-  RouterSpec,
   StorageSpec,
 } from 'react-cosmos-ui';
 import { type PluginContext, createPlugin } from 'react-plugin';
@@ -22,40 +21,19 @@ export type DarkModeFixtureState = {
   className: string | null;
 };
 
-type StoredDarkModeState = {
-  mode: Exclude<DarkMode, 'system'>;
-};
-
-const DARK_MODE_STORAGE_KEY = 'darkMode';
-
-const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-const { namedPlug, on, register } = createPlugin<DarkModeSpec>({
+const { namedPlug, register } = createPlugin<DarkModeSpec>({
   name: 'darkMode',
-  initialState: { mode: 'system', systemDarkMode: darkModeMediaQuery.matches },
   defaultConfig: { darkClass: 'dark', lightClass: null, default: 'system' },
 });
 
 namedPlug<RendererActionSlotProps>(
   'rendererAction',
   'darkMode',
-  ({ pluginContext }) => {
-    const { getConfig, setState } =
-      pluginContext as PluginContext<DarkModeSpec>;
-    // XXX For some reason `getConfig()` returns `undefined` here.
-    //
-    // For now we just manually set the default values.
-    const {
-      darkClass,
-      lightClass,
-      default: defaultMode,
-    } = getConfig() || {
-      darkClass: 'dark',
-      lightClass: null,
-      default: 'system',
-    };
+  (pluginContext: PluginContext<DarkModeSpec>) => {
+    const { getConfig } = pluginContext;
+    const { darkClass, lightClass, default: defaultMode } = getConfig();
 
-    const systemDarkMode = useSystemDarkMode(pluginContext);
+    const systemDarkMode = useSystemDarkMode();
     const storedDarkModeState = React.useRef(
       getStoredDarkModeState(pluginContext)
     );
@@ -65,24 +43,24 @@ namedPlug<RendererActionSlotProps>(
     );
 
     React.useEffect(() => {
-      setState((state) => ({ ...state, mode: darkMode }));
       storedDarkModeState.current = {
         mode: darkMode !== 'system' ? darkMode : null,
       };
       setStoredDarkModeState(pluginContext, storedDarkModeState.current);
     }, [darkMode]);
 
-    const fixtureClass = getDarkModeClass({
-      darkMode,
-      systemDarkMode,
-      darkClass,
-      lightClass,
-    });
+    const fixtureClass =
+      (darkMode === 'dark' || (darkMode === 'system' && systemDarkMode)
+        ? darkClass
+        : lightClass) || null;
 
-    React.useEffect(
-      () => setFixtureDarkModeState(pluginContext, { className: fixtureClass }),
-      [fixtureClass]
-    );
+    React.useEffect(() => {
+      const { getMethodsOf } = pluginContext;
+      const rendererCore = getMethodsOf<RendererCoreSpec>('rendererCore');
+      rendererCore.setGlobalFixtureState<DarkModeFixtureState>('darkMode', {
+        className: fixtureClass,
+      });
+    }, [fixtureClass]);
 
     return (
       <>
@@ -102,21 +80,11 @@ namedPlug<RendererActionSlotProps>(
   }
 );
 
-// I feel like this would be simpler if we could just do this inside
-// `namedPlug` but that requires being able to unregister the listener.
+// --------------------------------------------------------------------------
 //
-// Doing it here means we have to lift a lot of state from component state to
-// plugin state so we can read it when we get these events. It also means we
-// have to move the class name calculation logic to plugin scope rather than
-// just being a calculation inside the plugin component.
+// Registration
 //
-// XXX This is where I am getting stuck. We need to tell the fixture about the
-// current dark mode state when it loads. However it seems like these callbacks
-// run before the fixture is loaded.
-on<RouterSpec>('router', {
-  fixtureSelect: updateFixtureStateFromPluginContext,
-  fixtureReselect: updateFixtureStateFromPluginContext,
-});
+// --------------------------------------------------------------------------
 
 export { register };
 
@@ -125,6 +93,12 @@ declare const process: unknown;
 if (typeof process !== 'object' || (process as any).env.NODE_ENV !== 'test') {
   register();
 }
+
+// --------------------------------------------------------------------------
+//
+// Reducer
+//
+// --------------------------------------------------------------------------
 
 type DarkModeAction =
   | {
@@ -170,14 +144,19 @@ function reduceDarkMode(mode: DarkMode, action: DarkModeAction): DarkMode {
   }
 }
 
-function useSystemDarkMode(context: PluginContext<DarkModeSpec>): boolean {
+// --------------------------------------------------------------------------
+//
+// System dark mode
+//
+// --------------------------------------------------------------------------
+
+const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+function useSystemDarkMode(): boolean {
   const [isDark, setIsDark] = React.useState(darkModeMediaQuery.matches);
 
   React.useEffect(() => {
-    const listener = (e: MediaQueryListEvent) => {
-      context.setState((state) => ({ ...state, systemDarkMode: e.matches }));
-      setIsDark(e.matches);
-    };
+    const listener = (e: MediaQueryListEvent) => setIsDark(e.matches);
     darkModeMediaQuery.addEventListener('change', listener);
 
     return () => {
@@ -187,6 +166,18 @@ function useSystemDarkMode(context: PluginContext<DarkModeSpec>): boolean {
 
   return isDark;
 }
+
+// --------------------------------------------------------------------------
+//
+// Storage
+//
+// --------------------------------------------------------------------------
+
+const DARK_MODE_STORAGE_KEY = 'darkMode';
+
+type StoredDarkModeState = {
+  mode: Exclude<DarkMode, 'system'>;
+};
 
 function getStoredDarkModeState(
   context: PluginContext<DarkModeSpec>
@@ -203,49 +194,4 @@ function setStoredDarkModeState(
   const { getMethodsOf } = context;
   const storage = getMethodsOf<StorageSpec>('storage');
   storage.setItem<StoredDarkModeState>(DARK_MODE_STORAGE_KEY, state);
-}
-
-function getDarkModeClass({
-  darkMode,
-  systemDarkMode,
-  darkClass,
-  lightClass,
-}: {
-  darkMode: DarkMode;
-  systemDarkMode: boolean;
-  darkClass: string | null;
-  lightClass: string | null;
-}) {
-  return (
-    (darkMode === 'dark' || (darkMode === 'system' && systemDarkMode)
-      ? darkClass
-      : lightClass) || null
-  );
-}
-
-function setFixtureDarkModeState(
-  context: PluginContext<DarkModeSpec>,
-  state: DarkModeFixtureState
-) {
-  const { getMethodsOf } = context;
-  const rendererCore = getMethodsOf<RendererCoreSpec>('rendererCore');
-  rendererCore.setFixtureState((fixtureState) => ({
-    ...fixtureState,
-    darkMode: state,
-  }));
-}
-
-function updateFixtureStateFromPluginContext(
-  context: PluginContext<DarkModeSpec>
-) {
-  const { mode, systemDarkMode } = context.getState();
-  // XXX This should get the classes from config but I'm not sure if getConfig
-  // is working yet or not
-  const fixtureClass = getDarkModeClass({
-    darkMode: mode,
-    systemDarkMode,
-    darkClass: 'dark',
-    lightClass: null,
-  });
-  setFixtureDarkModeState(context, { className: fixtureClass });
 }
