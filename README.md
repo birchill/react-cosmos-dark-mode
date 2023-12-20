@@ -1,6 +1,6 @@
 # React Cosmos Dark Mode
 
-Adds a toolbar icon or two for toggling the dark mode.
+Adds a toolbar icon for toggling the dark mode.
 
 <img src="https://raw.githubusercontent.com/birchill/react-cosmos-dark-mode/main/docs/toolbar-icon.png" alt="The toolbar icon" title="Toolbar icon" width="180">
 
