@@ -8,14 +8,14 @@ export type DarkModeSpec = {
      *
      * @default 'dark'
      */
-    darkClass: string | null;
+    dark: string | null;
 
     /**
      * The class to set when we are in light mode, if any.
      *
      * @default null
      */
-    lightClass: string | null;
+    light: string | null;
 
     /**
      * The initial mode to use and the mode to use when any overrides are

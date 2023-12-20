@@ -11,7 +11,7 @@ import { DarkMode, DarkModeFixtureState, DarkModeSpec } from './spec.js';
 
 const { namedPlug, register } = createPlugin<DarkModeSpec>({
   name: 'darkMode',
-  defaultConfig: { darkClass: 'dark', lightClass: null, default: 'system' },
+  defaultConfig: { dark: 'dark', light: null, default: 'system' },
 });
 
 namedPlug<RendererActionSlotProps>(
@@ -19,7 +19,11 @@ namedPlug<RendererActionSlotProps>(
   'darkMode',
   ({ pluginContext }) => {
     const { getConfig } = pluginContext;
-    const { darkClass, lightClass, default: defaultMode } = getConfig();
+    const {
+      dark: darkClass,
+      light: lightClass,
+      default: defaultMode,
+    } = getConfig();
 
     const systemDarkMode = useSystemDarkMode();
     const storedDarkModeState = React.useRef(
