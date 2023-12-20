@@ -9,14 +9,15 @@
     ".": "./cosmos.plugin.json",
     "./DarkMode": {
       "types": "./dist/DarkMode.d.ts",
-      "import": "./dist/DarkMode.mjs",
-      "require": "./dist/DarkMode.js"
+      "import": "./dist/DarkMode.js",
+      "require": "./dist/DarkMode.cjs"
     }
   },
   "files": [
     "dist/**",
     "cosmos.plugin.json"
   ],
+  "type": "module",
   "devDependencies": {
     "@types/react": "^18.2.45",
     "react": "18.2.0",

@@ -13,14 +13,7 @@ export default defineConfig({
       'react-plugin': 'ReactPlugin',
     }),
   ],
-  // React Cosmos does not support ESM UI plugins yet:
-  // https://cosmos-docs-woad.vercel.app/docs/dev/esm#esm-ui-plugins
-  format: 'iife',
-  outExtension() {
-    return {
-      js: '.js',
-    };
-  },
+  format: 'esm',
   splitting: false,
   clean: true,
 });
