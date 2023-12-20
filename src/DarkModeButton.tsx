@@ -5,6 +5,7 @@ type Props = {
   onClick: () => unknown;
   filled?: boolean;
   highlighted?: boolean;
+  selected?: boolean;
 };
 
 export function DarkModeButton(props: Props) {
@@ -12,6 +13,7 @@ export function DarkModeButton(props: Props) {
   return (
     <IconButton32
       icon={<MoonIcon filled={props.filled} />}
+      selected={props.selected}
       title="Toggle dark mode"
       onClick={props.onClick}
     />

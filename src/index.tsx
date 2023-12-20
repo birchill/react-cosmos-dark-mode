@@ -59,6 +59,7 @@ namedPlug<RendererActionSlotProps>(
         filled={
           darkMode === 'dark' || (darkMode === 'system' && systemDarkMode)
         }
+        selected={darkMode !== defaultMode}
         highlighted={defaultMode === 'system' && systemDarkMode}
         onClick={() => {
           dispatch({ kind: 'toggle-dark', defaultMode, systemDarkMode });
