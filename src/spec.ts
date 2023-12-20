@@ -26,3 +26,15 @@ export type DarkModeSpec = {
     default: 'dark' | 'light' | 'system';
   };
 };
+
+/**
+ * The state we pass to the fixture.
+ */
+export type DarkModeFixtureState = {
+  /**
+   * The class to add to the root element.
+   *
+   * `null` to remove any applied class.
+   */
+  className: string | null;
+};

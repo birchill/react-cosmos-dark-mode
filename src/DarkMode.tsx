@@ -1,8 +1,10 @@
 import React from 'react';
 import { useFixtureState } from 'react-cosmos/client.js';
 
+import { DarkModeFixtureState } from './spec';
+
 export function DarkMode({ children }) {
-  const [darkMode] = useFixtureState<{ className: string }>('darkMode');
+  const [darkMode] = useFixtureState<DarkModeFixtureState>('darkMode');
 
   React.useLayoutEffect(() => {
     const className = darkMode?.className;

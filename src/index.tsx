@@ -7,19 +7,7 @@ import type {
 import { PluginContext, createPlugin } from 'react-plugin';
 
 import { DarkModeButton } from './DarkModeButton.js';
-import { DarkMode, DarkModeSpec } from './spec.js';
-
-/**
- * The state we pass to the fixture.
- */
-export type DarkModeFixtureState = {
-  /**
-   * The class to add to the root element.
-   *
-   * `null` to remove any applied class.
-   */
-  className: string | null;
-};
+import { DarkMode, DarkModeFixtureState, DarkModeSpec } from './spec.js';
 
 const { namedPlug, register } = createPlugin<DarkModeSpec>({
   name: 'darkMode',
