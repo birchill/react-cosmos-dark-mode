@@ -51,19 +51,15 @@ namedPlug<RendererActionSlotProps>(
     }, [fixtureClass]);
 
     return (
-      <>
-        {!!darkClass && (
-          <DarkModeButton
-            filled={
-              darkMode === 'dark' || (darkMode === 'system' && systemDarkMode)
-            }
-            highlighted={defaultMode === 'system' && systemDarkMode}
-            onClick={() => {
-              dispatch({ kind: 'toggle-dark', defaultMode, systemDarkMode });
-            }}
-          />
-        )}
-      </>
+      <DarkModeButton
+        filled={
+          darkMode === 'dark' || (darkMode === 'system' && systemDarkMode)
+        }
+        highlighted={defaultMode === 'system' && systemDarkMode}
+        onClick={() => {
+          dispatch({ kind: 'toggle-dark', defaultMode, systemDarkMode });
+        }}
+      />
     );
   }
 );
