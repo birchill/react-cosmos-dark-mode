@@ -13,6 +13,26 @@ export default defineConfig({
       'react-plugin': 'ReactPlugin',
     }),
   ],
+  // It's possible this only works because the only external modules we use are
+  // marked as external globals.
+  //
+  // If we introduce other external modules, we may need to bundle them instead
+  // since I'm not sure Cosmos still has proper support for ESM UI plugins
+  // (or at least it looks quite involved):
+  //
+  // https://cosmos-docs-woad.vercel.app/docs/dev/esm#esm-ui-plugins
+  //
+  // In that case we should use:
+  //
+  //  format: 'iife',
+  //  outExtension() {
+  //    return {
+  //      js: '.js',
+  //    };
+  //  },
+  //
+  // See: https://github.com/birchill/react-cosmos-dark-mode/commit/34e43d5b38d45faa491fb5711607de72b476e524
+  //
   format: 'esm',
   splitting: false,
   clean: true,
