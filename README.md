@@ -2,6 +2,8 @@
 
 Adds a toolbar icon or two for toggling the dark mode.
 
+<img src="https://raw.githubusercontent.com/birchill/react-cosmos-dark-mode/main/docs/toolbar-icon.png" alt="The toolbar icon" title="Toolbar icon" width="180">
+
 ## Who should use this?
 
 If you are working with components that have a dark mode that is controlled by
