@@ -16,6 +16,3 @@ export function DarkMode({ children }) {
 
   return children;
 }
-
-// No idea what this does but everyone else seems to do it...
-DarkMode.cosmosCapture = false;
