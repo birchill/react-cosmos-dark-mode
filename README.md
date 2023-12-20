@@ -4,7 +4,7 @@ Adds a toolbar icon or two for toggling the dark mode.
 
 ## Who should use this?
 
-If you are working this components that have a dark mode that is controlled by
+If you are working with components that have a dark mode that is controlled by
 a class on an ancestor (e.g. [Tailwind's `dark`
 class](https://tailwindcss.com/docs/dark-mode)) then you can use this to
 conveniently toggle between states.
@@ -74,7 +74,7 @@ The following configuration options can be set in the `ui.darkMode` section of
 ### Example
 
 To use a class `light` instead and disable the behavior where the plugin matches
-the system dark mode setting you can use:
+the system dark mode setting you would specify:
 
 ```diff
  {
