@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/birchill/react-cosmos-dark-mode/compare/v0.1.0...v0.1.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* fix package exports ([59919b3](https://github.com/birchill/react-cosmos-dark-mode/commit/59919b37cc767bdb5533e83db16e99ee17a2ce4e))
+
 ## 0.1.0 (2023-12-20)
 
 

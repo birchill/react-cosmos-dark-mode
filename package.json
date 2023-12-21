@@ -1,6 +1,6 @@
 {
   "name": "react-cosmos-dark-mode",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React Cosmos plugin for toggling dark mode",
   "repository": "https://github.com/birchill/react-cosmos-dark-mode/",
   "author": "Birchill, Inc.",
