@@ -1,0 +1,4 @@
+{
+  "main": "../dist/DarkMode.cjs",
+  "types": "../dist/DarkMode.d.cts"
+}
