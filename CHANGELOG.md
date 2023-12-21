@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/birchill/react-cosmos-dark-mode/compare/v0.1.1...v0.1.2) (2023-12-21)
+
+
+### Bug Fixes
+
+* fix subpath exports in Node 10 ([f865f5e](https://github.com/birchill/react-cosmos-dark-mode/commit/f865f5eaaf52a0224bd14a02ca3732f48d6a2d3c))
+
 ## [0.1.1](https://github.com/birchill/react-cosmos-dark-mode/compare/v0.1.0...v0.1.1) (2023-12-21)
 
 
