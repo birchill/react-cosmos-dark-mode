@@ -5,10 +5,10 @@
   "repository": "https://github.com/birchill/react-cosmos-dark-mode/",
   "author": "Birchill, Inc.",
   "license": "MIT",
+  "main": "./cosmos.plugin.json",
   "exports": {
     ".": "./cosmos.plugin.json",
     "./DarkMode": {
-      "types": "./dist/DarkMode.d.ts",
       "import": "./dist/DarkMode.js",
       "require": "./dist/DarkMode.cjs"
     }
