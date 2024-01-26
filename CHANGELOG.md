@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/birchill/react-cosmos-dark-mode/compare/v0.1.2...v0.1.3) (2024-01-26)
+
+
+### Bug Fixes
+
+* update react-cosmos peerDependency to 6.0.0 ([d137633](https://github.com/birchill/react-cosmos-dark-mode/commit/d1376336beb89f87552c98047d081fc3e2f54fe7))
+
 ## [0.1.2](https://github.com/birchill/react-cosmos-dark-mode/compare/v0.1.1...v0.1.2) (2023-12-21)
 
 
