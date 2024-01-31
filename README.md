@@ -47,6 +47,20 @@ wraps everything in the `DarkMode` fixture.
 You can do that by adding a file named `cosmos.decorator.tsx` to your root `src`
 folder that looks something like this:
 
+### React
+
+```ts
+// "use client" if you're using Next.js
+import * as React from 'react';
+import { DarkMode } from 'react-cosmos-dark-mode/DarkMode';
+
+export default function GlobalDecorator(props: { children: React.ReactNode }) {
+  return <DarkMode {...props} />;
+}
+```
+
+### Preact
+
 ```ts
 import type { RenderableProps } from 'preact';
 import { DarkMode } from 'react-cosmos-dark-mode/DarkMode';
@@ -59,8 +73,6 @@ export default function GlobalDecorator({
   return <DarkMode>{children}</DarkMode>;
 }
 ```
-
-(Can someone please help me update this for React?)
 
 ## Configuration
 
