@@ -40,7 +40,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "prepublishOnly": "yarn build",
+    "prepublishOnly": "pnpm build",
     "build": "tsup --config tsup.index.config.ts && tsup --config tsup.fixture.config.ts",
     "release": "release-it"
   },

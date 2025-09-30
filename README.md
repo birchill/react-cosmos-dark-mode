@@ -119,20 +119,3 @@ any of them:
 - Specifying the target attribute. For example, we could add a `targetAttr`
   setting to allow specifying which attribute to toggle.
   e.g. `targetAttr: "data-dark-mode"`.
-
-## Developing
-
-The easiest way to develop is using [`yalc`](https://github.com/wclr/yalc).
-
-Install it globally and then from this repo do:
-
-```
-yarn build
-yalc publish
-```
-
-Then in your project that is using React Cosmos run:
-
-```
-yalc add react-cosmos-dark-mode
-```
