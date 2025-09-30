@@ -21,6 +21,7 @@
   "type": "module",
   "devDependencies": {
     "@release-it/conventional-changelog": "10.0.1",
+    "@rollup/plugin-virtual": "3.0.2",
     "@types/react": "19.1.15",
     "react": "19.1.1",
     "react-cosmos": "7.0.0",
@@ -28,7 +29,7 @@
     "react-plugin": "3.0.0-alpha.4",
     "release-it": "19.0.5",
     "styled-components": "5.3.11",
-    "tsup": "8.5.0",
+    "tsdown": "0.15.5",
     "typescript": "5.9.2"
   },
   "prettier": {
@@ -41,7 +42,7 @@
   },
   "scripts": {
     "prepublishOnly": "pnpm build",
-    "build": "tsup --config tsup.index.config.ts && tsup --config tsup.fixture.config.ts",
+    "build": "tsdown",
     "release": "release-it"
   },
   "peerDependencies": {
