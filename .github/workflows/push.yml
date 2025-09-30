@@ -14,14 +14,20 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          cache: yarn
-          node-version: 20
+          version: latest
+
+      - uses: actions/setup-node@v5
+        with:
+          cache: pnpm
+          node-version: 22
 
       - name: Install
-        run: yarn install
+        run: pnpm install
 
       - name: Verify build
-        run: yarn build
+        run: pnpm build
