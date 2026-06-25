@@ -50,6 +50,6 @@
     "release": "release-it"
   },
   "peerDependencies": {
-    "react-cosmos": "^6.0.0"
+    "react-cosmos": "^7.1.0"
   }
 }
