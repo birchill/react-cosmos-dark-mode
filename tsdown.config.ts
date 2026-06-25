@@ -8,6 +8,7 @@ export default defineConfig([
       'process.env.NODE_ENV': '"production"',
     },
     entry: ['src/index.tsx'],
+    fixedExtension: false,
     platform: 'browser',
     plugins: [
       virtual({
@@ -19,9 +20,12 @@ export default defineConfig([
   },
   // fixture
   {
+    deps: {
+      neverBundle: ['react', 'react-cosmos/client'],
+    },
     dts: true,
     entry: ['src/DarkMode.tsx'],
-    external: ['react', 'react-cosmos/client'],
+    fixedExtension: false,
     format: ['cjs', 'esm'],
   },
 ]);
