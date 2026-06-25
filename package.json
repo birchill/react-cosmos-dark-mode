@@ -20,17 +20,17 @@
   ],
   "type": "module",
   "devDependencies": {
-    "@release-it/conventional-changelog": "10.0.1",
+    "@release-it/conventional-changelog": "11.0.1",
     "@rollup/plugin-virtual": "3.0.2",
     "@types/react": "19.2.17",
     "react": "19.2.7",
     "react-cosmos": "7.3.0",
     "react-cosmos-ui": "7.3.0",
     "react-plugin": "3.0.0-alpha.4",
-    "release-it": "19.0.5",
-    "styled-components": "5.3.11",
-    "tsdown": "0.15.5",
-    "typescript": "5.9.2"
+    "release-it": "20.2.0",
+    "styled-components": "6.4.2",
+    "tsdown": "0.22.3",
+    "typescript": "6.0.3"
   },
   "prettier": {
     "bracketSpacing": true,
