@@ -22,8 +22,8 @@
   "devDependencies": {
     "@release-it/conventional-changelog": "10.0.1",
     "@rollup/plugin-virtual": "3.0.2",
-    "@types/react": "19.1.15",
-    "react": "19.1.1",
+    "@types/react": "19.2.17",
+    "react": "19.2.7",
     "react-cosmos": "7.3.0",
     "react-cosmos-ui": "7.3.0",
     "react-plugin": "3.0.0-alpha.4",
