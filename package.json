@@ -38,7 +38,11 @@
     "trailingComma": "es5"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "engines": {}
+  },
+  "engines": {
+    "pnpm": ">=11"
   },
   "scripts": {
     "prepublishOnly": "pnpm build",
