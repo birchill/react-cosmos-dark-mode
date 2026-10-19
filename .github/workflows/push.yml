@@ -7,6 +7,11 @@ on:
 env:
   CI: true
 
+permissions:
+  contents: write # to create release (changesets/action)
+  id-token: write # required for provenance and OIDC publish
+  pull-requests: write # to create pull request (changesets/action)
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -25,9 +30,24 @@ jobs:
         with:
           cache: pnpm
           node-version: 24
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install
         run: pnpm install
 
       - name: Verify build
         run: pnpm build
+
+      - name: Update npm
+        if: github.repository == 'birchill/react-cosmos-dark-mode' && github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: npm update -g npm
+
+      - name: Create/update pull request or publish
+        if: github.repository == 'birchill/react-cosmos-dark-mode' && github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: changesets/action@v2
+        with:
+          commit-message: 'chore(release): publish'
+          pr-title: 'Publish next version'
+          publish-script: pnpm ci:publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

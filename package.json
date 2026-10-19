@@ -20,14 +20,13 @@
   ],
   "type": "module",
   "devDependencies": {
-    "@release-it/conventional-changelog": "11.0.1",
+    "@changesets/cli": "3.0.1",
     "@rollup/plugin-virtual": "3.0.2",
     "@types/react": "19.2.17",
     "react": "19.2.7",
     "react-cosmos": "7.3.0",
     "react-cosmos-ui": "7.3.0",
     "react-plugin": "3.0.0-alpha.4",
-    "release-it": "20.2.0",
     "styled-components": "6.4.2",
     "tsdown": "0.22.3",
     "typescript": "6.0.3"
@@ -47,7 +46,7 @@
   "scripts": {
     "prepublishOnly": "pnpm build",
     "build": "tsdown",
-    "release": "release-it"
+    "ci:publish": "pnpm changeset publish"
   },
   "peerDependencies": {
     "react-cosmos": "^7.1.0"
