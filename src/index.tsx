@@ -142,18 +142,15 @@ function reduceDarkMode(mode: DarkMode, action: DarkModeAction): DarkMode {
 const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
 function useSystemDarkMode(): boolean {
-  const [isDark, setIsDark] = React.useState(darkModeMediaQuery.matches);
+  return React.useSyncExternalStore(
+    subscribeToDarkMode,
+    () => darkModeMediaQuery.matches
+  );
+}
 
-  React.useEffect(() => {
-    const listener = (e: MediaQueryListEvent) => setIsDark(e.matches);
-    darkModeMediaQuery.addEventListener('change', listener);
-
-    return () => {
-      darkModeMediaQuery.removeEventListener('change', listener);
-    };
-  }, []);
-
-  return isDark;
+function subscribeToDarkMode(onChange: () => void): () => void {
+  darkModeMediaQuery.addEventListener('change', onChange);
+  return () => darkModeMediaQuery.removeEventListener('change', onChange);
 }
 
 // --------------------------------------------------------------------------
