@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "preserve",
     "moduleResolution": "bundler",
     "target": "es2020",
     "jsx": "react"
