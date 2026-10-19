@@ -4,6 +4,9 @@ import { defineConfig } from 'tsdown';
 export default defineConfig([
   // index
   {
+    deps: {
+      onlyBundle: false,
+    },
     define: {
       'process.env.NODE_ENV': '"production"',
     },
