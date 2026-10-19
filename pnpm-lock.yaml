@@ -17,6 +17,9 @@ importers:
       '@types/react':
         specifier: 19.2.17
         version: 19.2.17
+      prettier:
+        specifier: 3.9.10
+        version: 3.9.10
       react:
         specifier: 19.2.7
         version: 19.2.7
@@ -907,6 +910,11 @@ packages:
 
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
+
+  prettier@3.9.10:
+    resolution: {integrity: sha512-skGHTH1Yb9QvaTC4hWnRTzEYtCpApF0UMBPz+t/0ZPzP8ihefo/btKd+QA7pUE0fEwA1SbS/NmhyEcstdXOIdA==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
@@ -2079,6 +2087,8 @@ snapshots:
 
   postcss-value-parser@4.2.0:
     optional: true
+
+  prettier@3.9.10: {}
 
   proxy-addr@2.0.7:
     dependencies:
