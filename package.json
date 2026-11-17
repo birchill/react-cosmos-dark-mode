@@ -28,7 +28,7 @@
     "react-cosmos": "7.3.0",
     "react-cosmos-ui": "7.3.0",
     "react-plugin": "3.0.0-alpha.4",
-    "styled-components": "6.4.2",
+    "styled-components": "5.3.11",
     "tsdown": "0.22.3",
     "typescript": "6.0.3"
   },
