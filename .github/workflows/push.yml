@@ -38,6 +38,9 @@ jobs:
       - name: Verify build
         run: pnpm build
 
+      - name: Test plugin loading
+        run: pnpm test
+
       - name: Update npm
         if: github.repository == 'birchill/react-cosmos-dark-mode' && github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: npm update -g npm

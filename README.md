@@ -20,6 +20,8 @@ settings.
 
 ## Installation
 
+Requires React Cosmos 7.4 or later.
+
 Install the package:
 
 ```
