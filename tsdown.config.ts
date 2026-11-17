@@ -18,6 +18,7 @@ export default defineConfig([
         react: 'module.exports = React',
         'react-dom': 'module.exports = ReactDOM',
         'react-plugin': 'module.exports = ReactPlugin',
+        'styled-components': 'module.exports = window.StyledComponents',
       }),
     ],
   },
