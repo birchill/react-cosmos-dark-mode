@@ -18,6 +18,12 @@
 
 - fix package exports ([59919b3](https://github.com/birchill/react-cosmos-dark-mode/commit/59919b37cc767bdb5533e83db16e99ee17a2ce4e))
 
+## 0.2.0
+
+### Minor Changes
+
+- 5a4dcb5: Fix the missing toolbar icon on React Cosmos 7.4 by updating the bundled UI components to support the host's shared styled-components v6 instance. React Cosmos 7.4 or later is now required.
+
 ## 0.1.5
 
 ### Patch Changes
