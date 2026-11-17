@@ -18,6 +18,13 @@
 
 - fix package exports ([59919b3](https://github.com/birchill/react-cosmos-dark-mode/commit/59919b37cc767bdb5533e83db16e99ee17a2ce4e))
 
+## 0.1.5
+
+### Patch Changes
+
+- c5fcaec: Fix the plugin failing to load with `StyledButton.withComponent is not a function` by bundling the styled-components version expected by React Cosmos UI.
+- 2ee1365: Reuse the Cosmos UI's shared styled-components instance instead of bundling a separate copy.
+
 ## 0.1.4
 
 ### Patch Changes
